@@ -91,7 +91,7 @@ func (m *CloudVisionLoader) GetConfiguration() (*targetpb.Configuration, error) 
 	if err != nil {
 		fmt.Errorf("Cannot connect to CloudVision: %s", err)
 	}
-	//defer resp.Body.Close()
+	defer resp.Body.Close()
 
 	responseData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
