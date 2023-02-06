@@ -16,6 +16,7 @@
 package all
 
 import (
+	_ "github.com/openconfig/gnmi-gateway/gateway/loaders/aristacloudvision"
 	_ "github.com/openconfig/gnmi-gateway/gateway/loaders/json"
 	_ "github.com/openconfig/gnmi-gateway/gateway/loaders/netbox"
 	_ "github.com/openconfig/gnmi-gateway/gateway/loaders/simple"

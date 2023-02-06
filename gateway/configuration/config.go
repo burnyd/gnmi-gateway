@@ -181,6 +181,16 @@ type TargetLoadersConfig struct {
 	SimpleFile string `json:"simple_file"`
 	// SimpleFileReloadInterval is the interval to check SimpleFile for changes.
 	SimpleFileReloadInterval time.Duration `json:"simple_file_reload_interval"`
+	// The CloudVision Portion Host
+	CloudVisionPortalHost string
+	// CloudVisionAPI key for JSON Web Token
+	ClouVisionAPIKEY string
+	// List of paths to subscribe to for CloudVision
+	CloudVisionSubscribePaths []string
+	// Username for Targets
+	CloudVisionTargetUsername string
+	// Password for Targets
+	CloudVisionTargetPassword string
 }
 
 func NewDefaultGatewayConfig() *GatewayConfig {

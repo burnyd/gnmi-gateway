@@ -135,6 +135,11 @@ func ParseArgs(config *configuration.GatewayConfig) error {
 	zkHosts := flag.String("ZookeeperHosts", "", "Comma separated (no spaces) list of zookeeper hosts including port")
 	flag.StringVar(&config.ZookeeperPrefix, "ZookeeperPrefix", "/gnmi/gateway/", "Prefix for the lock path in Zookeeper")
 	flag.DurationVar(&config.ZookeeperTimeout, "ZookeeperTimeout", 1*time.Second, "Zookeeper timeout time. Minimum is 1 second. Failover time is (ZookeeperTimeout * 2)")
+	flag.StringVar(&config.TargetLoaders.CloudVisionTargetUsername, "CVPUsername", "", "Username which is used to connect for each device under CVP.")
+	flag.StringVar(&config.TargetLoaders.CloudVisionTargetPassword, "CVPPassword", "", "Password which is used to connect for each device under CVP.")
+	flag.StringVar(&config.TargetLoaders.ClouVisionAPIKEY, "CVPAPIkey", "", "JWT For Cloudvision to connect")
+	flag.StringVar(&config.TargetLoaders.CloudVisionPortalHost, "CVPHost", "", "Address of CVP")
+	CloudVisionSubscribePaths := flag.String("CloudVisionSubscribePaths", "", "Comma separated (no spaces) list of paths to subscribe to for devices loaded from Cloudvision")
 
 	flag.Parse()
 	config.Exporters.Enabled = cleanSplit(*exporters)
@@ -142,6 +147,7 @@ func ParseArgs(config *configuration.GatewayConfig) error {
 	config.TargetLoaders.Enabled = cleanSplit(*targetLoaders)
 	config.TargetLoaders.NetBoxSubscribePaths = cleanSplit(*netboxSubscribePaths)
 	config.ZookeeperHosts = cleanSplit(*zkHosts)
+	config.TargetLoaders.CloudVisionSubscribePaths = cleanSplit(*CloudVisionSubscribePaths)
 
 	if *configFile != "" {
 		err := configuration.PopulateGatewayConfigFromFile(config, *configFile)
