@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -51,11 +52,12 @@ type CvPDevices struct {
 }
 
 type CloudVisionLoader struct {
-	config   *configuration.GatewayConfig
-	last     *targetpb.Configuration
-	apiKey   string
-	host     string
-	interval time.Duration
+	config     *configuration.GatewayConfig
+	last       *targetpb.Configuration
+	apiKey     string
+	host       string
+	interval   time.Duration
+	targetport int
 }
 
 func init() {
@@ -64,9 +66,10 @@ func init() {
 
 func NewCloudvisionTargetLoader(config *configuration.GatewayConfig) loaders.TargetLoader {
 	return &CloudVisionLoader{
-		config: config,
-		apiKey: config.TargetLoaders.ClouVisionAPIKEY,
-		host:   config.TargetLoaders.CloudVisionPortalHost,
+		config:     config,
+		apiKey:     config.TargetLoaders.ClouVisionAPIKEY,
+		host:       config.TargetLoaders.CloudVisionPortalHost,
+		targetport: config.TargetLoaders.CloudVisionTargetPort,
 	}
 }
 
@@ -124,7 +127,7 @@ func (m *CloudVisionLoader) GetConfiguration() (*targetpb.Configuration, error) 
 	for _, i := range SplitDevs {
 		var dev CvPDevices
 		_ = json.Unmarshal([]byte(i), &dev)
-		devs[dev.Result.Value.Key.DeviceID] = dev.Result.Value.IPAddress.Value + ":6030"
+		devs[dev.Result.Value.Key.DeviceID] = dev.Result.Value.IPAddress.Value + strconv.Itoa(m.targetport)
 	}
 
 	for dev, devip := range devs {

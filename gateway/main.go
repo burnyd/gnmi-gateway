@@ -139,6 +139,7 @@ func ParseArgs(config *configuration.GatewayConfig) error {
 	flag.StringVar(&config.TargetLoaders.CloudVisionTargetPassword, "CVPPassword", "", "Password which is used to connect for each device under CVP.")
 	flag.StringVar(&config.TargetLoaders.ClouVisionAPIKEY, "CVPAPIkey", "", "JWT For Cloudvision to connect")
 	flag.StringVar(&config.TargetLoaders.CloudVisionPortalHost, "CVPHost", "", "Address of CVP")
+	flag.IntVar(&config.TargetLoaders.CloudVisionTargetPort, "CloudVisionTargetPort", 6030, "Port to connect for each target.  Default is 6030")
 	CloudVisionSubscribePaths := flag.String("CloudVisionSubscribePaths", "", "Comma separated (no spaces) list of paths to subscribe to for devices loaded from Cloudvision")
 
 	flag.Parse()

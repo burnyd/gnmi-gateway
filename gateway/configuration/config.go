@@ -191,6 +191,8 @@ type TargetLoadersConfig struct {
 	CloudVisionTargetUsername string
 	// Password for Targets
 	CloudVisionTargetPassword string
+	// Port for CloudVision API targets
+	CloudVisionTargetPort int
 }
 
 func NewDefaultGatewayConfig() *GatewayConfig {
